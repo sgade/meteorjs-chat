@@ -1,0 +1,53 @@
+<head>
+  <title>simplechat</title>
+</head>
+
+<body>
+  <div class="container">
+  	{{> chat}}
+  </div>
+</body>
+
+<template name="chat">
+	<div class="chat">
+		<div class="history">
+			{{#if messages}}
+				{{#each messages}}
+					{{> message}}
+				{{/each}}
+			{{/if}}
+			{{#unless messages}}
+				<span class="muted">No messages to show...</span>
+			{{/unless}}
+		</div>
+
+		<div class="input">
+			{{#if username}}
+			{{username}}: 
+			<input type="text" class="input-message" placeholder="Type your message..." />
+			{{/if}}
+
+			{{#unless username}}
+			You are not logged in. 
+			<input type="text" class="input-username" placeholder="Your username?" />
+			{{/unless}}
+
+			<button class="confirm" disabled="true">Confirm</button>
+		</div>
+	</div>
+</template>
+
+<template name="message">
+	<div class="message">
+		{{#if username}}
+		<span class="time">{{time}}</span>, <span class="username">{{username}}</span>:
+		{{message}}
+		{{/if}}
+
+		{{#unless username}}
+		<span class="server-message">
+			<span class="time">{{time}}</span>:
+			{{message}}
+		{{/unless}}
+	</div>
+</template>

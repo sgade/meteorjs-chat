@@ -1,4 +1,13 @@
 /* CSS declarations go here */
+body {
+    font-family: sans-serif;
+}
+
+.login {
+    float: right;
+    margin-right: 10px;
+}
+
 .container {
 	width: 768px;
 	margin: auto;
@@ -11,10 +20,16 @@
 	-webkit-border-radius: 5px;
 			box-shadow: 0px 0px 30px #CCCCCC;
 	-webkit-box-shadow: 0px 0px 30px #CCCCCC;
+    
 }
 
 .muted {
 	color: rgb(150, 150, 150);
+}
+
+.confirm {
+    float: right;
+    height:100%;
 }
 
 .chat {
@@ -24,11 +39,16 @@
 	-webkit-border-radius: 5px;
 }
 
+.input-message {
+     width: 690px;
+}
+
 .chat .history {
-	border: 3px solid black;
+	border: 1px solid gray;
 	padding: 3px;
 	margin-bottom: 5px;
-
+    
+    height: 350px;
 	max-height: 350px;
 	overflow: auto; /* Scroll bars */
 
@@ -37,14 +57,15 @@
 }
 
 .chat .message {
-			transition: background-color 0.25s;
-	-webkit-transition: background-color 0.25s;
+			transition: background-color 0.1s;
+	-webkit-transition: background-color 0.1s;
 }
 .chat .message:hover{
-	background-color: rgba(0, 153, 213, 0.4);
+	background-color: rgba(0, 153, 213, 0.1);
 }
 .chat .message .time {
 	font-style: italic;
+    float: right;
 }
 .chat .message .username {
 	font-weight: bold;

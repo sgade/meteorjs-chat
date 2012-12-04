@@ -1,5 +1,5 @@
 # Meteor.js Chat
-*A simple chat written for [meteor.js](https://meteor.com/)*
+*A simple chat written for [Meteor.js](https://meteor.com/)*
 
 ## What it was
 I was thinking of writing a simple chat with Meteor for a while now.

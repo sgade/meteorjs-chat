@@ -4,37 +4,6 @@
 </head>
 
 <body>
-<<<<<<< HEAD
-    <div class="login" style="">{{loginButtons align="right"}}</div>
-    
-    <div class="container">    
-
-      {{> chat}}
-    </div>
-</body>
-
-<template name="chat">
-	<div class="chat">
-		<div class="history">
-			{{#if messages}}
-				{{#each messages}}
-					{{> message}}
-				{{/each}}
-			{{/if}}
-			{{#unless messages}}
-				<span class="muted">No messages to show...</span>
-			{{/unless}}
-		</div>
-
-		<div class="input">
-			{{#if currentUser}}
-			<input type="text" class="input-message" placeholder="Type your message..." />
-			<button class="confirm" disabled="true">Go</button>
-			{{/if}}
-            {{#unless currentUser}}
-                <strong>Please sign in to write Messages!</strong>
-            {{/unless}}
-=======
 	{{> ui}}
 </body>
 
@@ -65,19 +34,10 @@
 		  	</div>
 
 		  	{{> chatContainer}}
->>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
 		</div>
 	</div>
 </template>
 
-<<<<<<< HEAD
-<template name="message">
-	<div class="message">
-		{{#if username}}
-            <span class="username">{{username}}</span>:
-		{{message}}
-            <span class="time">{{time}}</span>
-=======
 <template name="chatContainer">
 	<div class="chat-container">
 		{{#if currentUser}}
@@ -92,7 +52,6 @@
 				</div>
 			</div>
 		</div>
->>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
 		{{/if}}
 
 		{{#unless currentUser}}

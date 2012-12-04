@@ -1,23 +1,7 @@
 /* CSS declarations go here */
 body {
-<<<<<<< HEAD
-    font-family: sans-serif;
-}
-
-.login {
-    float: right;
-    margin-right: 10px;
-}
-
-.container {
-	width: 768px;
-	margin: auto;
-	margin-top: 30px;
-	margin-bottom: 10px;
-=======
 	font-family: sans-serif, Arial;
 }
->>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
 
 .login-buttons {
 	position: relative;
@@ -71,18 +55,8 @@ body {
 	text-align: center;
 	padding-top: 124px;
 
-<<<<<<< HEAD
-.confirm {
-    float: right;
-    height:100%;
-}
-
-.chat {
-	padding: 10px;
-=======
 	line-height: 40px;
 }
->>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
 
 .users-online {
 	border-style: none dashed none none;
@@ -96,20 +70,6 @@ body {
 			transition: color 0.5s;
 	-webkit-transition: color 0.5s;
 
-<<<<<<< HEAD
-.input-message {
-     width: 690px;
-}
-
-.chat .history {
-	border: 1px solid gray;
-	padding: 3px;
-	margin-bottom: 5px;
-    
-    height: 350px;
-	max-height: 350px;
-	overflow: auto; /* Scroll bars */
-=======
 	padding: 3px;
 	width: 100%;
 	text-align: center;
@@ -121,7 +81,6 @@ body {
 .users-online .user:hover {
 	color: black;
 }
->>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
 
 .chat {
 	
@@ -132,14 +91,6 @@ body {
 
 	margin-right: 10px;
 
-<<<<<<< HEAD
-.chat .message {
-			transition: background-color 0.1s;
-	-webkit-transition: background-color 0.1s;
-}
-.chat .message:hover{
-	background-color: rgba(0, 153, 213, 0.1);
-=======
 	border: 1px solid gray;
 			border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -153,19 +104,14 @@ body {
 }
 .chat .messages .message .username {
 	font-weight: bold;
->>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
 }
 .chat .messages .message .time {
 	float: right;
 	font-style: italic;
-<<<<<<< HEAD
-    float: right;
-=======
 
 	opacity: 0.1;
 			transition: opacity 0.25s;
 	-webkit-transition: opacity 0.25s;
->>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
 }
 .chat .messages .message:hover .time {
 	opacity: 1.0;

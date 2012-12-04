@@ -1,10 +1,9 @@
 # Meteor.js Chat
 *A simple chat written for [meteor.js](https://meteor.com/)*
 
-## What it is
+## What it was
 I was thinking of writing a simple chat with Meteor for a while now.
-This one was coded in about 30 minutes.
+The first one was coded in about 30 minutes.
 
-## What to do
-Feel free to grab the code and play with it. It’s nothing fancy.
-Please do not claim you wrote it all on your own.
+## Whats up next?
+I like this chat a little so I'm gonna be donin' a little tweaking now and then...

@@ -1,5 +1,6 @@
 /* CSS declarations go here */
 body {
+<<<<<<< HEAD
     font-family: sans-serif;
 }
 
@@ -13,20 +14,64 @@ body {
 	margin: auto;
 	margin-top: 30px;
 	margin-bottom: 10px;
+=======
+	font-family: sans-serif, Arial;
+}
+>>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
 
-	border: 1px solid #CCCCCC;
+.login-buttons {
+	position: relative;
+
+	margin-left: 15px;
+	margin-top: 10px;
+}
+.connection-status {
+	position: absolute;
+	right: 15px;
+	top: 10px;
+
+	cursor: default;
+
+	color: rgba(230, 230, 230, 0.3);
+
+			transition: color 0.5s;
+	-webkit-transition: color 0.5s;
+}
+.connection-status:hover {
+	color: black;
+}
+
+.container, .container-fluid {
+	margin-top: 15px;
+	margin-bottom: 5px;
 	background-color: rgb(250, 250, 250);
+}
+.container, .container-fluid .container-inner {
+	border: 1px solid #CCCCCC;
 			border-radius: 5px;
 	-webkit-border-radius: 5px;
 			box-shadow: 0px 0px 30px #CCCCCC;
 	-webkit-box-shadow: 0px 0px 30px #CCCCCC;
     
 }
-
-.muted {
-	color: rgb(150, 150, 150);
+.hero-unit {
+	margin-bottom: 5px;
 }
 
+/*
+ * Chat related
+ * */
+.chat-container {
+	height: 280px;
+}
+.chat-container .login-prompt {
+	font-size: 35px;
+	width: auto;
+	margin: auto;
+	text-align: center;
+	padding-top: 124px;
+
+<<<<<<< HEAD
 .confirm {
     float: right;
     height:100%;
@@ -34,11 +79,24 @@ body {
 
 .chat {
 	padding: 10px;
-
-			border-radius: 5px;
-	-webkit-border-radius: 5px;
+=======
+	line-height: 40px;
 }
+>>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
 
+.users-online {
+	border-style: none dashed none none;
+	border-width: 3px;
+	border-color: #ddd;
+
+	width: 100%;
+}
+.users-online .user {
+	color: rgba(50, 50, 50, 0.8);
+			transition: color 0.5s;
+	-webkit-transition: color 0.5s;
+
+<<<<<<< HEAD
 .input-message {
      width: 690px;
 }
@@ -51,25 +109,74 @@ body {
     height: 350px;
 	max-height: 350px;
 	overflow: auto; /* Scroll bars */
+=======
+	padding: 3px;
+	width: 100%;
+	text-align: center;
 
-			border-radius: 5px;
-	-webkit-border-radius: 5px;
+	border-style: none none dashed none;
+	border-width: 1px;
+	border-color: #ddd;
 }
+.users-online .user:hover {
+	color: black;
+}
+>>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
 
+.chat {
+	
+}
+.chat .messages {
+	overflow: auto;
+	height: 230px;
+
+	margin-right: 10px;
+
+<<<<<<< HEAD
 .chat .message {
 			transition: background-color 0.1s;
 	-webkit-transition: background-color 0.1s;
 }
 .chat .message:hover{
 	background-color: rgba(0, 153, 213, 0.1);
+=======
+	border: 1px solid gray;
+			border-radius: 3px;
+	-webkit-border-radius: 3px;
 }
-.chat .message .time {
-	font-style: italic;
-    float: right;
+.chat .messages .message {
+			transition: background-color 0.25s;
+	-webkit-transition: background-color 0.25s;
 }
-.chat .message .username {
+.chat .messages .message:hover {
+	background-color: rgba(0, 153, 213, 0.1);
+}
+.chat .messages .message .username {
 	font-weight: bold;
+>>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
 }
-.chat .message .server-message {
-	color: red;
+.chat .messages .message .time {
+	float: right;
+	font-style: italic;
+<<<<<<< HEAD
+    float: right;
+=======
+
+	opacity: 0.1;
+			transition: opacity 0.25s;
+	-webkit-transition: opacity 0.25s;
+>>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
+}
+.chat .messages .message:hover .time {
+	opacity: 1.0;
+}
+.chat .input {
+	height: 30px;
+	width: 100%;
+}
+.chat .input input {
+	width: 450px;
+
+	margin-right: 10px;
+	margin-top: 5px;
 }

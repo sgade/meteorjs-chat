@@ -1,8 +1,10 @@
 <head>
-  <title>simplechat</title>
+	<meta charset="utf-8">
+	<title>SimpleChat</title>
 </head>
 
 <body>
+<<<<<<< HEAD
     <div class="login" style="">{{loginButtons align="right"}}</div>
     
     <div class="container">    
@@ -32,22 +34,113 @@
             {{#unless currentUser}}
                 <strong>Please sign in to write Messages!</strong>
             {{/unless}}
+=======
+	{{> ui}}
+</body>
+
+<template name="ui">
+	<div class="login-buttons">
+		{{loginButtons}}
+	</div>
+	<div class="connection-status">
+		Status: {{connectionStatus}}
+	</div>
+
+	<div class="container">
+  		<div class="container-inner">
+	  		<div class="hero-unit">
+	  			<h1>
+	  				<img width="128" src="http://placehold.it/128x128&text=SimpleChat" alt="Header image">
+		  			SimpleChat <a href="https://meteor.com/" target="_blank" title="meteor.js">Meteor.js</a>
+		  		</h1>
+		  		By Sören Gade.
+		  		<span class="text-slogan">
+		  			{{#unless currentUser}}
+		  				Join for free.
+		  			{{/unless}}
+		  			{{#if currentUser}}
+		  				Chat for free.
+		  			{{/if}}
+		  		</span>
+		  	</div>
+
+		  	{{> chatContainer}}
+>>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
 		</div>
 	</div>
 </template>
 
+<<<<<<< HEAD
 <template name="message">
 	<div class="message">
 		{{#if username}}
             <span class="username">{{username}}</span>:
 		{{message}}
             <span class="time">{{time}}</span>
+=======
+<template name="chatContainer">
+	<div class="chat-container">
+		{{#if currentUser}}
+		<!-- If logged in -->
+		<div class="grid">
+			<div class="row-fluid">
+				<div class="span2">
+					{{> usersOnline}}
+				</div>
+				<div class="span10">
+					{{> chat}}
+				</div>
+			</div>
+		</div>
+>>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.
 		{{/if}}
 
-		{{#unless username}}
-		<span class="server-message">
-			<span class="time">{{time}}</span>:
-			{{message}}
+		{{#unless currentUser}}
+		<div class="login-prompt">
+			Please log in or create an account in order to chat with your friends.
+			<div> <!-- Fore a line break -->
+				<small class="muted">
+					This can be done in the upper left corner.
+				</small>
+			</div>
+		</div>
 		{{/unless}}
+	</div>
+</template>
+
+<template name="usersOnline">
+	<div class="users-online">
+		<b>Users online: {{usersCount}}</b>
+		{{#each users}}
+			{{> user}}
+		{{/each}}
+	</div>
+</template>
+<template name="user">
+	<div class="user">
+		{{username}}
+	</div>
+</template>
+
+<template name="chat">
+	<div class="chat">
+		<div class="messages">
+			{{#each messages}}
+				{{> message}}
+			{{/each}}
+		</div>
+		<div class="input">
+			<input type="text" id="input-chat" placeholder="Type your message here..." />
+			<button id="button-confirm">Send</button>
+		</div>
+	</div>
+</template>
+<template name="message">
+	<div class="message">
+		<span class="username">{{username}}</span>: 
+		{{text}}
+		<span class="time">
+			{{time}}
+		</span>
 	</div>
 </template>

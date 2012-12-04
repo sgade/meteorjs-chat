@@ -5,5 +5,11 @@
 
 preserve-inputs
 jquery
+<<<<<<< HEAD
 accounts-ui
 accounts-password
+=======
+accounts-password
+bootstrap
+accounts-ui
+>>>>>>> "Version 2.0" Complete rewritten. Taken tips from bigteddy.

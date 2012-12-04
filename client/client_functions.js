@@ -2,11 +2,9 @@ if ( Meteor.isClient )
 {
 	function scrollMessagesToBottom()
 	{
-		var scrollHeight = $(".messages")[0].scrollHeight;
-		console.log(scrollHeight);
-    	$('.messages').stop().animate({
-    		scrollTop: scrollHeight,
-    	}, 250);
+        var selector = $(".messages");
+        selector.scrollTop(selector[0].scrollHeight);
+		
   	}
 
   	// Override

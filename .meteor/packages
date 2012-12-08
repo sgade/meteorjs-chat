@@ -7,4 +7,5 @@ preserve-inputs
 jquery
 accounts-password
 bootstrap
-accounts-ui
+accounts-ui-unstyled
+less

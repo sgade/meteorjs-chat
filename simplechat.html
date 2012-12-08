@@ -8,8 +8,8 @@
 </body>
 
 <template name="ui">
-	<div class="login-buttons">
-		{{loginButtons}}
+	<div class="login-buttons-container">
+		{{loginButtons align="right"}}
 	</div>
 	<div class="connection-status">
 		Status: {{connectionStatus}}
@@ -24,6 +24,7 @@
 		  		</h1>
 		  		By Sören Gade.
 		  		<span class="text-slogan">
+
 		  			{{#unless currentUser}}
 		  				Join for free.
 		  			{{/unless}}

@@ -73,8 +73,18 @@
 </template>
 <template name="message">
 	<div class="message">
-		<span class="username">{{username}}</span>: 
-		{{text}}
+		{{#unless byServer}}
+			<span class="username">{{username}}</span>: 
+		{{/unless}}
+		<span class="msg-text">
+			{{#if byServer}}
+				<span class="server-message">
+			{{/if}}
+			{{text}}
+			{{#if byServer}}
+				</span>
+			{{/if}}
+		</span>
 		<span class="time">
 			{{time}}
 		</span>

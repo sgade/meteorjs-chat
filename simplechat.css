@@ -249,3 +249,8 @@ body {
 #login-buttons {
 	margin: 5px;
 }
+
+.server-message {
+	color: red;
+	
+}

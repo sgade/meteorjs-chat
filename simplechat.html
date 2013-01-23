@@ -18,7 +18,7 @@
 </template>
 <template name="ui">
 	<div class="login-buttons-container">
-		{{loginButtons align="right"}}
+		{{loginButtons}}
 	</div>
 	<div class="connection-status">
 		Status: {{connectionStatus}}
@@ -75,7 +75,7 @@
 
 <template name="chat">
 	<div class="chat">
-		<div class="messages">
+		<div class="messages box">
 			{{#each messages}}
 				{{> message}}
 			{{/each}}
@@ -107,11 +107,14 @@
 </template>
 
 <template name="threads">
-    <ul>
-        <!-- {{#each threads}}
-            {{> thread}}
-        {{/each}} -->
-    </ul>
+    <div class="threads">
+        <span class="header">Threads:</span>
+        <div class="box">
+            <!-- {{#each threads}}
+                {{> thread}}
+            {{/each}} -->
+        </div>
+    </div>
 </template>
 <template name="thread">
     

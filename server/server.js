@@ -2,6 +2,15 @@ if ( Meteor.isServer )
 {
 	Meteor.startup(function() {
 	  	// code to run on server at startup
+        
+        // add welcome message
+        Messages.remove({});
+        var message = {
+            'time': new Date().getTime(),
+            'user': "SERVER",
+            'text': 'Server started. Have fun.'
+        };
+        Messages.insert(message);
 
 	  	Meteor.publish("messages", function() {
 	  		return Messages.find({});

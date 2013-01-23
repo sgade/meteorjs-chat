@@ -6,11 +6,6 @@ if ( Meteor.isServer )
 	  	Meteor.publish("messages", function() {
 	  		return Messages.find({});
 	  	});
-	  	Meteor.publish("allUserData", function() {
-	  		return Meteor.users.find( {}, {
-	  			fields: { 'username': 1 },
-	  		});
-	  	});
 
 	  	Accounts.validateNewUser(function(user) {
 	  		if ( user.username && user.username.length >= 3 && user.username != "SERVER" )
@@ -26,9 +21,9 @@ if ( Meteor.isServer )
 
 	  	Messages.allow({
 	  		insert: function(userId, doc) {
-	  			if ( doc.time && doc.userId && doc.text )
+	  			if ( doc.time && doc.user && doc.text )
 	  			{
-	  				if ( doc.userId != SERVER_USERID )
+	  				if ( doc.user != SERVER_USERID )
 	  					return true;
 	  				else
 	  					throw new Meteor.Error(403, "Haha. You are not the server.");
@@ -45,10 +40,5 @@ if ( Meteor.isServer )
 	  			return false;
 	  		},
 	  	});
-	  	Meteor.users.deny({
-	  		update: function() {
-	  			return true;
-	  		}
-	  	})
 	});
 }

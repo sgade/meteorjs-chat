@@ -20,17 +20,8 @@
 	  		<div class="hero-unit">
 	  			<h1>
 	  				<img width="128" src="http://placehold.it/128x128&text=SimpleChat" alt="Header image">
-		  			SimpleChat <a href="https://meteor.com/" target="_blank" title="meteor.js">Meteor.js</a>
+		  			<a href="https://meteor.com/" target="_blank" title="meteor.js">Meteor.js</a> SimpleChat 
 		  		</h1>
-		  		<span class="text-slogan">
-
-		  			{{#unless currentUser}}
-		  				Join for free.
-		  			{{/unless}}
-		  			{{#if currentUser}}
-		  				Chat for free.
-		  			{{/if}}
-		  		</span>
 		  	</div>
 
 		  	{{> chatContainer}}
@@ -42,16 +33,7 @@
 	<div class="chat-container">
 		{{#if currentUser}}
 		<!-- If logged in -->
-		<div class="grid">
-			<div class="row-fluid">
-				<div class="span2">
-					{{> usersOnline}}
-				</div>
-				<div class="span10">
-					{{> chat}}
-				</div>
-			</div>
-		</div>
+		{{> chat}}
 		{{/if}}
 
 		{{#unless currentUser}}
@@ -67,20 +49,6 @@
 	</div>
 </template>
 
-<template name="usersOnline">
-	<div class="users-online">
-		<b>Users online: {{usersCount}}</b>
-		{{#each users}}
-			{{> user}}
-		{{/each}}
-	</div>
-</template>
-<template name="user">
-	<div class="user">
-		{{username}}
-	</div>
-</template>
-
 <template name="chat">
 	<div class="chat">
 		<div class="messages">
@@ -90,7 +58,7 @@
 		</div>
 		<div class="input">
 			<input type="text" id="input-chat" placeholder="Type your message here..." />
-			<button id="button-confirm">Send</button>
+			<button id="button-confirm" class="btn btn-primary">Send</button>
 		</div>
 	</div>
 </template>

@@ -31,17 +31,6 @@ if ( Meteor.isClient )
   });
 
   /* **************************************************
-   * Template: Users List
-   * **************************************************
-   * */
-  Template.usersOnline.usersCount = function() {
-    return Meteor.users.find({}).count();
-  };
-  Template.usersOnline.users = function() {
-    return Meteor.users.find({}).fetch();
-  };
-
-  /* **************************************************
    * Template: Messages, Chat
    * **************************************************
    * */
@@ -73,7 +62,7 @@ if ( Meteor.isClient )
    * **************************************************
    * */
   Template.message.username = function() {
-    return getUserNameById(this.userId);
+    return this.user;
   };
   Template.message.text = function() {
     return this.text;

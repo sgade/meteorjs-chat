@@ -11,7 +11,7 @@ body {
 }
 .connection-status {
 	position: absolute;
-	right: 15px;
+	right: 150px;
 	top: 10px;
 
 	cursor: default;

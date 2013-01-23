@@ -4,9 +4,18 @@
 </head>
 
 <body>
+    {{> github-fork}}
 	{{> ui}}
 </body>
 
+<template name="github-fork">
+    <!-- Fork me link to github -->
+    <a href="https://github.com/sgade/meteorjs-chat" title="This project on GitHub.com" target="_blank">
+        <img style="position: absolute; top: 0; right: 0; border: 0;"
+            src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"
+            alt="Fork me on GitHub">
+    </a>
+</template>
 <template name="ui">
 	<div class="login-buttons-container">
 		{{loginButtons align="right"}}

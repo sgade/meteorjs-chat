@@ -38,8 +38,11 @@ body {
 	-webkit-box-shadow: 0px 0px 30px #CCCCCC;
     
 }
-.hero-unit {
-	margin-bottom: 5px;
+.header-image {
+    margin: 20px;
+}
+.header-text {
+    margin-top: 66px;
 }
 
 /*

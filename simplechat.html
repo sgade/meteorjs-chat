@@ -26,11 +26,17 @@
 
 	<div class="container">
   		<div class="container-inner">
-	  		<div class="hero-unit">
-	  			<h1>
-	  				<img width="128" src="http://placehold.it/128x128&text=SimpleChat" alt="Header image">
-		  			<a href="https://meteor.com/" target="_blank" title="meteor.js">Meteor.js</a> SimpleChat 
-		  		</h1>
+	  		<div class="grid">
+                <div class="row-fluid">
+                    <div class="span4">
+                        <img class="header-image" width="128" src="http://placehold.it/128x128&text=SimpleChat" alt="Header image">
+                    </div>
+                    <div class="span8">
+                        <h1 class="header-text">
+                            <a href="https://meteor.com/" target="_blank" title="meteor.js">Meteor.js</a> SimpleChat
+                        </h1>
+                    </div>
+                </div>
 		  	</div>
 
 		  	{{> chatContainer}}
@@ -42,7 +48,16 @@
 	<div class="chat-container">
 		{{#if currentUser}}
 		<!-- If logged in -->
-		{{> chat}}
+        <div class="grid">
+            <div class="row-fluid">
+                <div class="span10">
+                    {{> chat}}
+                </div>
+                <div class="span2">
+                    {{> threads}}
+                </div>
+            </div>
+        </div>
 		{{/if}}
 
 		{{#unless currentUser}}
@@ -89,4 +104,15 @@
 			{{time}}
 		</span>
 	</div>
+</template>
+
+<template name="threads">
+    <ul>
+        <!-- {{#each threads}}
+            {{> thread}}
+        {{/each}} -->
+    </ul>
+</template>
+<template name="thread">
+    
 </template>

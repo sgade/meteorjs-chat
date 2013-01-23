@@ -62,10 +62,13 @@ if ( Meteor.isClient )
    * **************************************************
    * */
   Template.message.username = function() {
-    return this.user;
+    return this.user.username;
   };
   Template.message.text = function() {
     return this.text;
+  };
+  Template.message.byServer = function() {
+	return this.user.username == null;
   };
   Template.message.time = function() {
     return getTimeStampFromTime(this.time);

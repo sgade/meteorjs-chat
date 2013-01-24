@@ -37,7 +37,7 @@
                             <a href="https://meteor.com/" target="_blank" title="meteor.js">Meteor.js</a> SimpleChat
                         </h1>
                     </div>
-					<div class="span4">
+					<div class="span2">
 						<span class="pull-right">{{onlineUsers}}</span>
 					</div>
                 </div>
@@ -152,8 +152,8 @@
             <i class="icon-task-list"></i>
         {{/unless}}
          <!-- space is important here -->
-		<a data-thread-name="{{name}}" href="#" class="thread-link">
-            {{formatName name}}
+		<a data-thread-name="{{name}}" href="{{url name}}" class="thread-link">
+            {{formatName name}} <!-- ({{onlineUsersCount}}) -->
         </a>
 	</li>
 </template>

@@ -1,10 +1,11 @@
 if (Meteor.isClient) {
-
+    // Set the users' current thread
     Session.set("currentThread", MAIN_THREAD_NAME);
 
+    // set the routes (that define the current thread)
     var Router = Backbone.Router.extend({
         routes: {
-            "": "main",
+            "": MAIN_THREAD_NAME,
             ":thread": "thread"
         },
         main: function () {
@@ -13,10 +14,8 @@ if (Meteor.isClient) {
         thread: function (threadName) {
             Meteor.call("createThread", threadName);
             Session.set("currentThread", threadName);
-			//this.navigate(threadName);
         }
     });
-
     ThreadRouter = new Router;
 
     Meteor.startup(function () {
@@ -52,12 +51,15 @@ if (Meteor.isClient) {
         return Meteor.status().status;
     };
 	Template.ui.onlineUsers = function() {
-		return Meteor.users.find({'profile.online': true}).count();
+		return Meteor.users.find({
+            'profile.online': true
+        }).count();
 	}
     // events
     Template.ui.events({
         'click .connection-status': function () {
-            if (!Meteor.status().connected) Meteor.reconnect();
+            if (!Meteor.status().connected)
+                Meteor.reconnect();
         },
     });
 
@@ -97,13 +99,14 @@ if (Meteor.isClient) {
      * **************************************************
      * */
     Template.message.username = function () {
-        return this.user.username;
+        //return this.user.username;
+        return getUsernameById(this.user);
     };
     Template.message.text = function () {
         return this.text;
     };
     Template.message.isByServer = function () {
-        return this.user.username == null;
+        return ( this.user == SERVER_USERID );
     };
     Template.message.time = function () {
         return getTimeStampFromTime(this.time);
@@ -160,10 +163,19 @@ if (Meteor.isClient) {
 	Template.thread.formatName = function (name) {
 		return decodeURIComponent(name);
 	};
-	
-	Template.thread.onlineUsers = function() {
-		return Meteor.users.find({'profile.online': true, 'profile.currentThread': Session.get("currentThread")}).fetch();
-	}
+    
+    Template.thread.url = function(name) {
+        return Meteor.absoluteUrl(name, {
+            'secure': true
+        });
+    };
+        
+    Template.thread.onlineUsersCount = function() {
+        return Meteor.users.find({
+            'profile.online': true,
+            'profile.currentThread': Session.get("currentThread")
+        }).count();
+    };
 	
 	Template.thread.events({
 		'click .thread-link': function() {
@@ -173,12 +185,15 @@ if (Meteor.isClient) {
 	});
 	
 	Meteor.setInterval(function () {
-		Meteor.users.update({_id: Meteor.user()._id},
-			 				{$set:
-								{
-									'profile.online': true,
-								 	'profile.currentThread': Session.get("currentThread")
-							 	}
-						 	});
-	}, 2500);
+        if ( Meteor.user() != null ) {
+            Meteor.users.update({
+                _id: Meteor.user()._id
+            }, {
+                $set: {
+                    'profile.online': true,
+                    'profile.currentThread': Session.get("currentThread")
+                }
+            });
+        }
+	}, 5000);
 }

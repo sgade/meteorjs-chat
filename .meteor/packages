@@ -9,3 +9,5 @@ accounts-password
 bootstrap
 accounts-ui-unstyled
 less
+underscore
+backbone

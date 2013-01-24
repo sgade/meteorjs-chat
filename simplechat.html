@@ -110,12 +110,21 @@
     <div class="threads">
         <span class="header">Threads:</span>
         <div class="box">
-            <!-- {{#each threads}}
+			<ul>
+            {{#each threads}}
                 {{> thread}}
-            {{/each}} -->
+            {{/each}}
+			</ul>
         </div>
+		<div class="input">
+			<input type="text" id="input-thread" placeholder="Thread Name..." />
+			<a id="button-confirm-thread" class="btn btn-primary" href="#">Go</a>
+		</div>
     </div>
 </template>
+
 <template name="thread">
-    
+	<li {{#if currentThread name}} class="current-thread"{{/if}}>		
+		<a data-thread-name={{name}} href="#" class="thread-link">{{formatName name}}</a>
+	</li>
 </template>

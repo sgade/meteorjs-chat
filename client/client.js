@@ -83,8 +83,9 @@ if (Meteor.isClient) {
             if ( event.which == 13 ) // Enter
                 $("#button-confirm-thread").click();
         },
-        'click #button-confirm-thread': function(event) {
+        'click #button-confirm-thread': function() {
 			var threadName = $("#input-thread").val();
+            console.log("Thread name: " + threadName);
             if ( threadName != "" )
             {
                 ThreadRouter.navigate(threadName);
@@ -107,7 +108,7 @@ if (Meteor.isClient) {
     Template.message.text = function () {
         return this.text;
     };
-    Template.message.byServer = function () {
+    Template.message.isByServer = function () {
         return this.user.username == null;
     };
     Template.message.time = function () {

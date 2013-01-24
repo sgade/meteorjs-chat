@@ -97,15 +97,15 @@
 </template>
 <template name="message">
 	<div class="message">
-		{{#unless byServer}}
+		{{#unless isByServer}}
 			<span class="username">{{username}}</span>: 
 		{{/unless}}
 		<span class="msg-text">
-			{{#if byServer}}
+			{{#if isByServer}}
 				<span class="server-message">
 			{{/if}}
 			{{text}}
-			{{#if byServer}}
+			{{#if isByServer}}
 				</span>
 			{{/if}}
 		</span>

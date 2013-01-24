@@ -102,7 +102,7 @@ if (Meteor.isClient) {
     Template.message.text = function () {
         return this.text;
     };
-    Template.message.byServer = function () {
+    Template.message.isByServer = function () {
         return this.user.username == null;
     };
     Template.message.time = function () {
@@ -153,20 +153,20 @@ if (Meteor.isClient) {
      * Template: Thread
      * **************************************************
      * */
-    Template.thread.currentThread = function (thread) {
+    Template.thread.isCurrentThread = function (thread) {
         return Session.equals("currentThread", thread);
     };
 	
 	Template.thread.formatName = function (name) {
 		return decodeURIComponent(name);
-	}
+	};
 	
 	Template.thread.onlineUsers = function() {
 		return Meteor.users.find({'profile.online': true, 'profile.currentThread': Session.get("currentThread")}).fetch();
 	}
 	
 	Template.thread.events({
-		'click .thread-link': function(){
+		'click .thread-link': function() {
 			var threadName = $(event.target).attr("data-thread-name");
 			ThreadRouter.navigate(threadName);
   		}

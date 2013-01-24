@@ -11,11 +11,6 @@ body {
 .grid .row-fluid > * > button {
     width: 100%;
 }
-.grid .row > * > input,
-.grid .row-fluid > * > input {
-    padding-right: 0px;
-    padding-left: 0px;
-}
 .grid .input {
     margin-top: 5px;
     margin-bottom: 10px;
@@ -71,8 +66,15 @@ body {
 .header-image {
     margin: 20px;
 }
-.header-text {
-    margin-top: 66px;
+@media ( min-width: 768px ) {
+    .header-text {
+        margin-top: 66px;
+    }
+}
+@media ( max-width: 768px ) {
+    .header-text {
+        text-align: center;
+    }
 }
 
 /*
@@ -122,6 +124,9 @@ body {
 			transition: opacity 0.25s;
 	-webkit-transition: opacity 0.25s;
 }
+.messages .message:last-child .time {
+    opacity: 0.5;
+}
 .messages .message:hover .time {
 	opacity: 1.0;
 }
@@ -149,4 +154,9 @@ body {
 }
 .threads .box ul li:nth-child(even) {
     background-color: rgba(150, 150, 150, 0.2);
+}
+/* Fix for overlapping */
+#input-thread {
+    padding-right: 0px;
+    padding-left: 2px;
 }

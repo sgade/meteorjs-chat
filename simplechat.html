@@ -101,15 +101,15 @@
 </template>
 <template name="message">
 	<div class="message">
-		{{#unless byServer}}
+		{{#unless isByServer}}
 			<span class="username">{{username}}</span>: 
 		{{/unless}}
 		<span class="msg-text">
-			{{#if byServer}}
+			{{#if isByServer}}
 				<span class="server-message">
 			{{/if}}
 			{{text}}
-			{{#if byServer}}
+			{{#if isByServer}}
 				</span>
 			{{/if}}
 		</span>
@@ -144,11 +144,11 @@
 </template>
 
 <template name="thread">
-	<li {{#if currentThread name}} class="current-thread"{{/if}}>
-        {{#if currentThread name}}
-                <i class="icon-arrow-right"></i>
+	<li {{#if isCurrentThread name}} class="current-thread"{{/if}}>
+        {{#if isCurrentThread name}}
+            <i class="icon-arrow-right"></i>
         {{/if}}
-        {{#unless currentThread name}}
+        {{#unless isCurrentThread name}}
             <i class="icon-task-list"></i>
         {{/unless}}
          <!-- space is important here -->

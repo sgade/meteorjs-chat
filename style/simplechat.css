@@ -121,12 +121,23 @@ body {
 .threads .box ul {
 	list-style: none;
 	margin: 0;
-	padding: 2px;
 }
 
-.current-thread {
-	background-color: rgba(128, 0, 200, 0.1);
+.threads .box ul li {
+	padding-left: 3px;
 	border-radius: 2px;
+}
+
+.threads .box ul li:nth-child(odd) {
+	background-color: rgba(150, 150, 150, 0.05);
+}
+
+.threads .box ul li:nth-child(even) {
+	background-color: rgba(150, 150, 150, 0.2);
+}
+
+.threads .box ul li.current-thread {
+	background: rgba(128, 0, 200, 0.2);
 }
 
 #input-thread {

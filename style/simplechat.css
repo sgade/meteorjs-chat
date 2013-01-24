@@ -11,6 +11,11 @@ body {
 .grid .row-fluid > * > button {
     width: 100%;
 }
+.grid .row > * > input,
+.grid .row-fluid > * > input {
+    padding-right: 0px;
+    padding-left: 0px;
+}
 .grid .input {
     margin-top: 5px;
 }
@@ -88,24 +93,27 @@ body {
 /*
  * Conversation view
  * */
-.chat .messages {
+.messages {
 	overflow: auto;
 	height: 230px;
 }
-.chat .messages .message {
+.messages .message {
 			transition: background-color 0.25s;
 	-webkit-transition: background-color 0.25s;
 }
-.server-message {
-	color: red;
-}
-.chat .messages .message:hover {
+.messages .message:hover {
 	background-color: rgba(0, 153, 213, 0.1);
 }
-.chat .messages .message .username {
+.messages .message .username {
 	font-weight: bold;
 }
-.chat .messages .message .time {
+.messages .message .msg-text {
+    color: black;
+}
+.messages .message .msg-text .server-message {
+	color: red;
+}
+.messages .message .time {
 	float: right;
 	font-style: italic;
 
@@ -113,33 +121,31 @@ body {
 			transition: opacity 0.25s;
 	-webkit-transition: opacity 0.25s;
 }
-.chat .messages .message:hover .time {
+.messages .message:hover .time {
 	opacity: 1.0;
 }
 /* 
  * Threads
  * */
 .threads {
-    height: 230px;
+    height: 270px;
 }
 .threads .box {
-    height: 210px;
+    height: 230px;
 }
-
 .threads .box ul {
 	list-style: none;
-	margin: 0;
+    overflow: auto;
+    
+    margin: 0px;
 }
 .threads .box ul li {
 	padding-left: 3px;
 	border-radius: 2px;
 }
 .threads .box ul li:nth-child(odd) {
-	background-color: rgba(150, 150, 150, 0.05);
+    background-color: rgba(150, 150, 150, 0.05);
 }
 .threads .box ul li:nth-child(even) {
-	background-color: rgba(150, 150, 150, 0.2);
-}
-.threads .box ul li.current-thread {
-	background: rgba(128, 0, 200, 0.2);
+    background-color: rgba(150, 150, 150, 0.2);
 }

@@ -55,7 +55,7 @@ if (Meteor.isClient) {
     });
 
     /* **************************************************
-     * Template: Messages, Chat, Threads
+     * Template: Messages
      * **************************************************
      * */
     Template.chat.messages = function () {
@@ -65,39 +65,11 @@ if (Meteor.isClient) {
             }
         }).fetch();
     };
-
-    Template.threads.threads = function () {
-        var threads = [];
-        var messages = Messages.find({}, {
-            fields: {
-                thread: 1
-            }
-        });
-        messages.forEach(function (message) {
-            var contains = false;
-            _.each(threads, function (searchThread) {
-                if (searchThread.name === message.thread.name) contains = true;
-            })
-            if (!contains) threads.push(message.thread)
-        })
-
-        return threads;
-    };
-
-    Template.thread.currentThread = function (thread) {
-        return Session.equals("currentThread", thread);
-    };
-	
-	Template.thread.formatName = function (name) {
-		return decodeURIComponent(name);
-	}
-	
-
     // events
     Template.chat.events({
         'keyup #input-chat': function (event) {
-            if (event.which == 13) // Enter
-            $("#button-sendMessage").click();
+            if ( event.which == 13 ) // Enter
+                $("#button-sendMessage").click();
         },
         'click #button-sendMessage': function () {
             var text = $("#input-chat").val();
@@ -105,27 +77,26 @@ if (Meteor.isClient) {
                 msg(text, Session.get("currentThread"));
                 $("#input-chat").val("");
             }
-        }
-    });
-	Template.thread.events({
-		'click .thread-link': function(){
-			var threadName = $(event.target).attr("data-thread-name");
-			ThreadRouter.navigate(threadName);
-		}
-	});
-	Template.threads.events({
-		'click #button-confirm-thread': function(event) {
+        },
+        
+        'keyup #input-thread': function(event) {
+            if ( event.which == 13 ) // Enter
+                $("#button-confirm-thread").click();
+        },
+        'click #button-confirm-thread': function(event) {
 			var threadName = $("#input-thread").val();
-			$("#input-thread").val("");
-			ThreadRouter.navigate(threadName);
-		}
-	});
+            if ( threadName != "" )
+            {
+                ThreadRouter.navigate(threadName);
+                $("#input-thread").val("");
+            }
+		},
+    });
     // render
     Template.chat.rendered = function () {
         scrollMessagesToBottom();
     };
-
-
+    
     /* **************************************************
      * Template: Message
      * **************************************************
@@ -142,4 +113,49 @@ if (Meteor.isClient) {
     Template.message.time = function () {
         return getTimeStampFromTime(this.time);
     };
+    
+    /* **************************************************
+     * Template: Threads
+     * **************************************************
+     * */
+    Template.threads.threads = function () {
+        var threads = [];
+        var messages = Messages.find({}, {
+            fields: {
+                thread: 1
+            }
+        });
+        messages.forEach(function (message) {
+            var contains = false;
+            _.each(threads, function (searchThread) {
+                if ( searchThread.name === message.thread.name )
+                    contains = true;
+            })
+            if ( !contains )
+                threads.push(message.thread)
+        })
+
+        return threads;
+    };
+
+    /* **************************************************
+     * Template: Thread
+     * **************************************************
+     * */
+    Template.thread.currentThread = function (thread) {
+        return Session.equals("currentThread", thread);
+    };
+	
+	Template.thread.formatName = function (name) {
+		return decodeURIComponent(name);
+	}
+	
+	Template.thread.events({
+		'click .thread-link': function(){
+			var threadName = $(event.target).attr("data-thread-name");
+			ThreadRouter.navigate(threadName);
+            
+            return false;
+		}
+	});
 }

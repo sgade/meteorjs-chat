@@ -43,9 +43,13 @@ if (Meteor.isServer) {
                 return false;
             },
         });
+		
+		Meteor.publish("allUserData", function () {
+		  return Meteor.users.find({}, {fields: {'profile.online': 1, 'profile.currentThread': 1, 'username': 1}});
+		});
     });
 	
 	Meteor.setInterval(function () {
-		Meteor.users.update({}, {$set:{'profile.online': true}});
-	}, 10000);
+		Meteor.users.update({}, {$set:{'profile.online': 'false'}});
+	}, 13000);
 }

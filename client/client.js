@@ -13,6 +13,7 @@ if (Meteor.isClient) {
         thread: function (threadName) {
             Meteor.call("createThread", threadName);
             Session.set("currentThread", threadName);
+			//this.navigate(threadName);
         }
     });
 
@@ -22,6 +23,9 @@ if (Meteor.isClient) {
         Backbone.history.start({
             pushState: true
         });
+		Meteor.autosubscribe(function() {
+			Meteor.subscribe("allUserData");
+		})
     });
 
 
@@ -48,7 +52,7 @@ if (Meteor.isClient) {
         return Meteor.status().status;
     };
 	Template.ui.onlineUsers = function() {
-		return Meteor.users.where({online: true}).count();
+		return Meteor.users.find({'profile.online': true}).count();
 	}
     // events
     Template.ui.events({
@@ -72,8 +76,8 @@ if (Meteor.isClient) {
     // events
     Template.chat.events({
         'keyup #input-chat': function (event) {
-            if (event.which == 13) // Enter
-            $("#button-sendMessage").click();
+            if ( event.which == 13 ) // Enter
+                $("#button-sendMessage").click();
         },
         'click #button-sendMessage': function () {
             var text = $("#input-chat").val();
@@ -83,62 +87,11 @@ if (Meteor.isClient) {
             }
         }
     });
-	
     // render
     Template.chat.rendered = function () {
         scrollMessagesToBottom();
     };
-	
-   /* **************************************************
-    * Template: Threads
-    * **************************************************
-    * */
-	  
-    Template.threads.threads = function () {
-        var threads = [];
-        var messages = Messages.find({}, {
-            fields: {
-                thread: 1
-            }
-        });
-        messages.forEach(function (message) {
-            var contains = false;
-            _.each(threads, function (searchThread) {
-                if (searchThread.name === message.thread.name) contains = true;
-            })
-            if (!contains) threads.push(message.thread)
-        })
-
-        return threads;
-    };
-
-    Template.thread.currentThread = function (thread) {
-        return Session.equals("currentThread", thread);
-    };
-	
-	Template.thread.formatName = function (name) {
-		return decodeURIComponent(name);
-	}
-	
-	Template.thread.onlineUsers = function() {
-		return Meteor.users.find({'profile.online': true, 'profile.currentThread': Session.get("currentThread")});
-	}
-	
-	Template.thread.events({
-		'click .thread-link': function(){
-			var threadName = $(event.target).attr("data-thread-name");
-			ThreadRouter.navigate(threadName);
-		}
-	});
-	Template.threads.events({
-		'click #button-confirm-thread': function(event) {
-			var threadName = $("#input-thread").val();
-			$("#input-thread").val("");
-			ThreadRouter.navigate(threadName);
-		}
-	});
-
-
+    
     /* **************************************************
      * Template: Message
      * **************************************************
@@ -155,9 +108,77 @@ if (Meteor.isClient) {
     Template.message.time = function () {
         return getTimeStampFromTime(this.time);
     };
+    
+    /* **************************************************
+     * Template: Threads
+     * **************************************************
+     * */
+    Template.threads.threads = function () {
+        var threads = [];
+        var messages = Messages.find({}, {
+            fields: {
+                thread: 1
+            }
+        });
+        messages.forEach(function (message) {
+            var contains = false;
+            _.each(threads, function (searchThread) {
+                if ( searchThread.name === message.thread.name )
+                    contains = true;
+            })
+            if ( !contains )
+                threads.push(message.thread)
+        })
+
+        return threads;
+    };
+	
+	Template.threads.events({
+		'keyup #input-thread': function(event) {
+			if ( event.which == 13 ) // Enter
+		    	$("#button-confirm-thread").click();
+		},
+		'click #button-confirm-thread': function(event) {
+			var threadName = $("#input-thread").val();
+			console.log(threadName);
+		    //if ( threadName !== "" )
+		    {
+		        $("#input-thread").val("");
+		    	ThreadRouter.navigate(threadName);
+		    }
+		}
+	});
+
+    /* **************************************************
+     * Template: Thread
+     * **************************************************
+     * */
+    Template.thread.currentThread = function (thread) {
+        return Session.equals("currentThread", thread);
+    };
+	
+	Template.thread.formatName = function (name) {
+		return decodeURIComponent(name);
+	}
+	
+	Template.thread.onlineUsers = function() {
+		return Meteor.users.find({'profile.online': true, 'profile.currentThread': Session.get("currentThread")}).fetch();
+	}
+	
+	Template.thread.events({
+		'click .thread-link': function(){
+			var threadName = $(event.target).attr("data-thread-name");
+			ThreadRouter.navigate(threadName);
+  		}
+	});
 	
 	Meteor.setInterval(function () {
-		Meteor.user().profile.online = true;
-		Meteor.user().profile.currentThread = Session.get("currentThread");
-	}, 10000);
+		Meteor.users.update({_id: Meteor.user()._id},
+			 				{$set:
+								{
+									'profile.online': true,
+								 	'profile.currentThread': Session.get("currentThread")
+							 	}
+						 	});
+	}, 2500);
 }

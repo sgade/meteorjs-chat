@@ -30,7 +30,7 @@
 	  		<div class="grid">
                 <div class="row-fluid">
                     <div class="span4">
-                        <img class="header-image" width="128" src="placehold.it-simplechat-128x128.gif" alt="Header image">
+                        <img class="header-image img-rounded" width="128" src="placehold.it-simplechat-128x128.gif" alt="Header image">
                     </div>
                     <div class="span8">
                         <h1 class="header-text">
@@ -132,7 +132,7 @@
 		<div class="grid input">
             <div class="row-fluid">
                 <div class="span8">
-                    <input type="text" id="input-thread" placeholder="Thread name..." />
+                    <input type="text" id="input-thread" placeholder="New thread..." />
                 </div>
                 <div class="span4">
                     <a href="#" id="button-confirm-thread" class="btn btn-primary" title="Create new thread">
@@ -147,10 +147,10 @@
 <template name="thread">
 	<li {{#if isCurrentThread name}} class="current-thread"{{/if}}>
         {{#if isCurrentThread name}}
-            <i class="icon-arrow-right"></i>
+            <i class="icon-arrow-right" title="You are in this thread."></i>
         {{/if}}
         {{#unless isCurrentThread name}}
-            <i class="icon-task-list"></i>
+            <i class="icon-tasks" title="A thread. You can join here."></i>
         {{/unless}}
          <!-- space is important here -->
 		<a data-thread-name="{{name}}" href="{{url name}}" class="thread-link">

@@ -18,6 +18,7 @@ body {
 }
 .grid .input {
     margin-top: 5px;
+    margin-bottom: 10px;
 }
 /* Box style for messages and threads */
 .box {
@@ -128,7 +129,7 @@ body {
  * Threads
  * */
 .threads {
-    height: 270px;
+    min-height: 270px;
 }
 .threads .box {
     height: 230px;

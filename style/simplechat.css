@@ -1,5 +1,27 @@
+/*
+ * General style
+ * */
 body {
 	font-family: sans-serif, Arial;
+}
+/* make the top level input or button element in span*s max width'ed */
+.grid .row > * > input,
+.grid .row > * > button,
+.grid .row-fluid > * > input,
+.grid .row-fluid > * > button {
+    width: 100%;
+}
+.grid .input {
+    margin-top: 5px;
+}
+/* Box style for messages and threads */
+.box {
+	padding: 2px;
+    border: 1px solid rgb(200,200,200);
+			border-radius: 3px;
+	-webkit-border-radius: 3px;
+    
+    overflow: auto;
 }
 
 /*
@@ -51,7 +73,7 @@ body {
  * Bottom part. Chat related
  * */
 .chat-container {
-	height: 280px;
+	min-height: 280px;
     padding: 20px;
 }
 .chat-container .login-prompt {
@@ -62,16 +84,6 @@ body {
 	padding-top: 124px;
 
 	line-height: 40px;
-}
-
-/* Box style for messages and threads */
-.box {
-	padding: 2px;
-    border: 1px solid rgb(200,200,200);
-			border-radius: 3px;
-	-webkit-border-radius: 3px;
-    
-    overflow: auto;
 }
 /*
  * Conversation view
@@ -110,10 +122,6 @@ body {
 .threads {
     height: 230px;
 }
-.threads .header {
-    margin: 2px;
-    height: 14px;
-}
 .threads .box {
     height: 210px;
 }
@@ -122,43 +130,16 @@ body {
 	list-style: none;
 	margin: 0;
 }
-
 .threads .box ul li {
 	padding-left: 3px;
 	border-radius: 2px;
 }
-
 .threads .box ul li:nth-child(odd) {
 	background-color: rgba(150, 150, 150, 0.05);
 }
-
 .threads .box ul li:nth-child(even) {
 	background-color: rgba(150, 150, 150, 0.2);
 }
-
 .threads .box ul li.current-thread {
 	background: rgba(128, 0, 200, 0.2);
-}
-
-#input-thread {
-	margin-top: 10px;
-	width: 100px;
-}
-
-
-/*
- * Chat input
- * */
-.chat .input {
-	height: 30px;
-	width: 100%;
-}
-.chat .input input {
-	width: 75%;
-    
-    margin-top: 11px;
-    margin-right: 5px;
-}
-.chat .input button {
-    width: 20%;
 }

@@ -81,9 +81,17 @@
 				{{> message}}
 			{{/each}}
 		</div>
-		<div class="input">
-			<input type="text" id="input-chat" placeholder="Type your message here..." />
-			<button id="button-confirm" class="btn btn-primary">Send</button>
+		<div class="grid input">
+            <div class="row-fluid">
+                <div class="span8">
+                    <input type="text" id="input-chat" placeholder="Type your message here..." />
+                </div>
+                <div class="span4">
+                    <button id="button-sendMessage" class="btn btn-primary">
+                        Send
+                    </button>
+                </div>
+            </div>
 		</div>
 	</div>
 </template>
@@ -109,7 +117,6 @@
 
 <template name="threads">
     <div class="threads">
-        <span class="header">Threads:</span>
         <div class="box">
 			<ul>
             {{#each threads}}
@@ -117,15 +124,23 @@
             {{/each}}
 			</ul>
         </div>
-		<div class="input">
-			<input type="text" id="input-thread" placeholder="Thread Name..." />
-			<a id="button-confirm-thread" class="btn btn-primary" href="#">Go</a>
+		<div class="grid input">
+            <div class="row-fluid">
+                <div class="span8">
+                    <input type="text" id="input-thread" placeholder="Thread Name" />
+                </div>
+                <div class="span4">
+                    <a id="button-confirm-thread" class="btn btn-primary" href="#">Go</a>
+                </div>
+            </div>
 		</div>
     </div>
 </template>
 
 <template name="thread">
 	<li {{#if currentThread name}} class="current-thread"{{/if}}>		
-		<a data-thread-name={{name}} href="#" class="thread-link">{{formatName name}}</a>
+		<a data-thread-name={{name}} href="#" class="thread-link">
+            {{formatName name}}
+        </a>
 	</li>
 </template>

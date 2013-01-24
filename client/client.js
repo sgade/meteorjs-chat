@@ -97,9 +97,9 @@ if (Meteor.isClient) {
     Template.chat.events({
         'keyup #input-chat': function (event) {
             if (event.which == 13) // Enter
-            $("#button-confirm").click();
+            $("#button-sendMessage").click();
         },
-        'click #button-confirm': function () {
+        'click #button-sendMessage': function () {
             var text = $("#input-chat").val();
             if (text != "") {
                 msg(text, Session.get("currentThread"));

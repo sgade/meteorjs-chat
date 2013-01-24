@@ -3,4 +3,6 @@ if (Meteor.isClient) {
         var selector = $(".messages");
         selector.scrollTop(selector[0].scrollHeight);
     }
+	
+
 }

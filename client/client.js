@@ -8,7 +8,7 @@ if (Meteor.isClient) {
             ":thread": "thread"
         },
         main: function () {
-		    Session.set("currentThread", MAIN_THREAD_NAME);
+		    this.navigate(MAIN_THREAD_NAME);
         },
         thread: function (threadName) {
             Meteor.call("createThread", threadName);
@@ -47,6 +47,9 @@ if (Meteor.isClient) {
     Template.ui.connectionStatus = function () {
         return Meteor.status().status;
     };
+	Template.ui.onlineUsers = function() {
+		return Meteor.users.where({online: true}).count();
+	}
     // events
     Template.ui.events({
         'click .connection-status': function () {
@@ -55,7 +58,7 @@ if (Meteor.isClient) {
     });
 
     /* **************************************************
-     * Template: Messages, Chat, Threads
+     * Template: Messages
      * **************************************************
      * */
     Template.chat.messages = function () {
@@ -66,6 +69,31 @@ if (Meteor.isClient) {
         }).fetch();
     };
 
+    // events
+    Template.chat.events({
+        'keyup #input-chat': function (event) {
+            if (event.which == 13) // Enter
+            $("#button-sendMessage").click();
+        },
+        'click #button-sendMessage': function () {
+            var text = $("#input-chat").val();
+            if (text != "") {
+                msg(text, Session.get("currentThread"));
+                $("#input-chat").val("");
+            }
+        }
+    });
+	
+    // render
+    Template.chat.rendered = function () {
+        scrollMessagesToBottom();
+    };
+	
+   /* **************************************************
+    * Template: Threads
+    * **************************************************
+    * */
+	  
     Template.threads.threads = function () {
         var threads = [];
         var messages = Messages.find({}, {
@@ -92,21 +120,10 @@ if (Meteor.isClient) {
 		return decodeURIComponent(name);
 	}
 	
-
-    // events
-    Template.chat.events({
-        'keyup #input-chat': function (event) {
-            if (event.which == 13) // Enter
-            $("#button-sendMessage").click();
-        },
-        'click #button-sendMessage': function () {
-            var text = $("#input-chat").val();
-            if (text != "") {
-                msg(text, Session.get("currentThread"));
-                $("#input-chat").val("");
-            }
-        }
-    });
+	Template.thread.onlineUsers = function() {
+		return Meteor.users.find({'profile.online': true, 'profile.currentThread': Session.get("currentThread")});
+	}
+	
 	Template.thread.events({
 		'click .thread-link': function(){
 			var threadName = $(event.target).attr("data-thread-name");
@@ -120,10 +137,6 @@ if (Meteor.isClient) {
 			ThreadRouter.navigate(threadName);
 		}
 	});
-    // render
-    Template.chat.rendered = function () {
-        scrollMessagesToBottom();
-    };
 
 
     /* **************************************************
@@ -142,4 +155,9 @@ if (Meteor.isClient) {
     Template.message.time = function () {
         return getTimeStampFromTime(this.time);
     };
+	
+	Meteor.setInterval(function () {
+		Meteor.user().profile.online = true;
+		Meteor.user().profile.currentThread = Session.get("currentThread");
+	}, 10000);
 }

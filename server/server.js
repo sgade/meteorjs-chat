@@ -13,16 +13,6 @@ if (Meteor.isServer) {
             }
         };
         Messages.insert(message);
-        
-        Threads.remove({});
-        Threads.insert({
-            'name': 'Standard',
-            'url': ''
-        });
-        Threads.insert({
-            'name': 'Test',
-            'url': 'test'
-        });
 
         Meteor.publish("messages", function () {
             return Messages.find({});
@@ -54,4 +44,8 @@ if (Meteor.isServer) {
             },
         });
     });
+	
+	Meteor.setInterval(function () {
+		Meteor.users.update({}, {$set:{'profile.online': true}});
+	}, 10000);
 }

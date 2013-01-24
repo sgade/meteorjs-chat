@@ -20,6 +20,7 @@
 	<div class="login-buttons-container">
 		{{loginButtons}}
 	</div>
+	
 	<div class="connection-status">
 		Status: {{connectionStatus}}
 	</div>
@@ -31,11 +32,14 @@
                     <div class="span4">
                         <img class="header-image" width="128" src="http://placehold.it/128x128&text=SimpleChat" alt="Header image">
                     </div>
-                    <div class="span8">
+                    <div class="span6">
                         <h1 class="header-text">
                             <a href="https://meteor.com/" target="_blank" title="meteor.js">Meteor.js</a> SimpleChat
                         </h1>
                     </div>
+					<div class="span4">
+						<span class="pull-right">{{onlineUsers}}</span>
+					</div>
                 </div>
 		  	</div>
 
@@ -130,9 +134,9 @@
                     <input type="text" id="input-thread" placeholder="Thread name..." />
                 </div>
                 <div class="span4">
-                    <button id="button-confirm-thread" class="btn btn-primary" title="Create new thread">
+                    <a href="#" id="button-confirm-thread" class="btn btn-primary" title="Create new thread">
                         Go
-                    </button>
+                    </a>
                 </div>
             </div>
 		</div>
@@ -148,7 +152,7 @@
             <i class="icon-task-list"></i>
         {{/unless}}
          <!-- space is important here -->
-		<a data-thread-name={{name}} href="#" class="thread-link">
+		<a data-thread-name="{{name}}" href="#" class="thread-link">
             {{formatName name}}
         </a>
 	</li>

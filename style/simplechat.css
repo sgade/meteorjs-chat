@@ -122,6 +122,9 @@ body {
 			transition: opacity 0.25s;
 	-webkit-transition: opacity 0.25s;
 }
+.messages .message:last-child .time {
+    opacity: 0.5;
+}
 .messages .message:hover .time {
 	opacity: 1.0;
 }

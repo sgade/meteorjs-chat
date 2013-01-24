@@ -13,6 +13,16 @@ if (Meteor.isServer) {
             }
         };
         Messages.insert(message);
+        
+        Threads.remove({});
+        Threads.insert({
+            'name': 'Standard',
+            'url': ''
+        });
+        Threads.insert({
+            'name': 'Test',
+            'url': 'test'
+        });
 
         Meteor.publish("messages", function () {
             return Messages.find({});

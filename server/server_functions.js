@@ -13,7 +13,7 @@ if (Meteor.isServer) {
                 Messages.insert({
                     'time': new Date().getTime(),
                     'user': SERVER_USERID,
-                    'text': 'Your Thread was created!',
+                    'text': 'Thread was created.',
                     'thread': {
                         name: threadName
                     }

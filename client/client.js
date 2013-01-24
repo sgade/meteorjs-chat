@@ -50,11 +50,6 @@ if (Meteor.isClient) {
     Template.ui.connectionStatus = function () {
         return Meteor.status().status;
     };
-	Template.ui.onlineUsers = function() {
-		return Meteor.users.find({
-            'profile.online': true
-        }).count();
-	}
     // events
     Template.ui.events({
         'click .connection-status': function () {
@@ -135,6 +130,19 @@ if (Meteor.isClient) {
 
         return threads;
     };
+    
+    Template.threads.onlineUsersString = function() {
+        var text = Meteor.users.find({
+            'profile.online': true
+        }).count();
+        
+        if ( text == 1 )
+            text += " user";
+        else
+            text += " users";
+        
+		return text;
+	}
 	
 	Template.threads.events({
 		'keyup #input-thread': function(event) {

@@ -32,14 +32,11 @@
                     <div class="span4">
                         <img class="header-image" width="128" src="http://placehold.it/128x128&text=SimpleChat" alt="Header image">
                     </div>
-                    <div class="span6">
+                    <div class="span8">
                         <h1 class="header-text">
                             <a href="https://meteor.com/" target="_blank" title="meteor.js">Meteor.js</a> SimpleChat
                         </h1>
                     </div>
-					<div class="span2">
-						<span class="pull-right">{{onlineUsers}}</span>
-					</div>
                 </div>
 		  	</div>
 
@@ -121,6 +118,10 @@
 
 <template name="threads">
     <div class="threads">
+        <div class="users-count">
+            Currently {{onlineUsersString}} online.
+        </div>
+        
         <div class="box">
 			<ul>
             {{#each threads}}

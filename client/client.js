@@ -5,7 +5,7 @@ if (Meteor.isClient) {
     // set the routes (that define the current thread)
     var Router = Backbone.Router.extend({
         routes: {
-            "": MAIN_THREAD_NAME,
+            "": "main",
             ":thread": "thread"
         },
         main: function () {
@@ -173,15 +173,18 @@ if (Meteor.isClient) {
 	};
     
     Template.thread.url = function(name) {
-        return Meteor.absoluteUrl(name, {
+        // causes reload:
+        /* return Meteor.absoluteUrl(name, {
             'secure': true
-        });
+        }); */
+        
+        return "#";
     };
         
-    Template.thread.onlineUsersCount = function() {
+    Template.thread.onlineUsersCount = function(name) {
         return Meteor.users.find({
             'profile.online': true,
-            'profile.currentThread': Session.get("currentThread")
+            'profile.currentThread': name
         }).count();
     };
 	

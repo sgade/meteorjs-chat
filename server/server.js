@@ -9,14 +9,12 @@ if (Meteor.isServer) {
     
     Meteor.startup(function () {
         // code to run on server at startup
-        console.log("Server started.");
 
         // add welcome message
-        Messages.remove({});
         var message = {
             'time': new Date().getTime(),
             'user': SERVER_USERID,
-            'text': 'Server started. Have fun.',
+            'text': 'Server restarted. Have fun.',
             'thread': {
                 name: MAIN_THREAD_NAME
             }
@@ -24,7 +22,12 @@ if (Meteor.isServer) {
         Messages.insert(message);
 
         Meteor.publish("messages", function () {
-            return Messages.find({});
+            return Messages.find({}, {
+                'sort': {
+                    'time': 1
+                },
+                'limit': 200
+            });
         });
 
         Accounts.validateNewUser(function (user) {
@@ -75,9 +78,6 @@ if (Meteor.isServer) {
         
         // clean up online status
         resetOnlineState();
-        
-        // done
-        console.log("All up and running.");
     });
 	
 	Meteor.setInterval(function () {

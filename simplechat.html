@@ -140,11 +140,11 @@
 </template>
 
 <template name="thread">
-	<li {{#if currentThread name}} class="current-thread"{{/if}}>
-        {{#if currentThread name}}
+	<li {{#if isCurrentThread name}} class="current-thread"{{/if}}>
+        {{#if isCurrentThread name}}
                 <i class="icon-arrow-right"></i>
         {{/if}}
-        {{#unless currentThread name}}
+        {{#unless isCurrentThread name}}
             <i class="icon-task-list"></i>
         {{/unless}}
          <!-- space is important here -->

@@ -1,6 +1,5 @@
 language: node_js
 node_js:
    - "0.8"
-   - "0.6"
 script: "meteor deploy ce-bt-chat.meteor.com"
 before_script: "curl https://install.meteor.com | /bin/sh"

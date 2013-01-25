@@ -1,23 +1,4 @@
 if (Meteor.isServer) {
-    function setOnlineState() {
-        Meteor.users.update({}, {
-            $set: {
-                'profile.online': false
-            }
-        });
-        
-        var validLastPing = new Date().getTime() - LASTPING_DELAY;
-        Meteor.users.update({
-            'profile.lastPing': { 
-                $gte: validLastPing
-            }
-        }, {
-           $set: {
-               'profile.online': true
-           }
-        });
-    }
-    
     Meteor.startup(function () {
         // code to run on server at startup
 
@@ -81,17 +62,10 @@ if (Meteor.isServer) {
             return Meteor.users.find( {}, {
                 fields: {
                     'username': 1,
-                    'profile.online': 1,
+                    'profile.lastPing': 1,
                     'profile.currentThread': 1
                 }
             });
 		});
-        
-        // clean up online status
-        setOnlineState();
     });
-    
-    Meteor.setInterval(function () {
-		setOnlineState();
-	}, 10000);
 }

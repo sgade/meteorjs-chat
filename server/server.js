@@ -1,10 +1,10 @@
 if (Meteor.isServer) {
     function setOnlineState() {
         Meteor.users.update({}, {
--           $set: {
--               'profile.online': false
--           }
--       });
+            $set: {
+                'profile.online': false
+            }
+        });
         
         var validLastPing = new Date().getTime() - LASTPING_DELAY;
         Meteor.users.update({
@@ -16,7 +16,7 @@ if (Meteor.isServer) {
                'profile.online': true
            }
         });
--    }
+    }
     
     Meteor.startup(function () {
         // code to run on server at startup
@@ -92,6 +92,6 @@ if (Meteor.isServer) {
     });
     
     Meteor.setInterval(function () {
--		setOnlineState();
--	}, 10000);
+		setOnlineState();
+	}, 10000);
 }

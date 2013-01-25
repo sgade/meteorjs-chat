@@ -132,9 +132,7 @@ if (Meteor.isClient) {
     };
     
     Template.threads.onlineUsersString = function() {
-        var text = Meteor.users.find({
-            'profile.online': true
-        }).count();
+        var text = getOnlineUsersCount();
         
         if ( text == 1 )
             text += " user";
@@ -151,8 +149,7 @@ if (Meteor.isClient) {
 		},
 		'click #button-confirm-thread': function(event) {
 			var threadName = $("#input-thread").val();
-			console.log(threadName);
-		    //if ( threadName !== "" )
+		    if ( threadName !== "" )
 		    {
 		        $("#input-thread").val("");
 		    	ThreadRouter.navigate(threadName);
@@ -182,10 +179,7 @@ if (Meteor.isClient) {
     };
         
     Template.thread.onlineUsersCount = function(name) {
-        return Meteor.users.find({
-            'profile.online': true,
-            'profile.currentThread': name
-        }).count();
+        return getOnlineUsersCountThread(name);
     };
 	
 	Template.thread.events({
@@ -201,7 +195,7 @@ if (Meteor.isClient) {
                 _id: Meteor.user()._id
             }, {
                 $set: {
-                    'profile.online': true,
+                    'profile.lastPing': new Date().getTime(),
                     'profile.currentThread': Session.get("currentThread")
                 }
             });

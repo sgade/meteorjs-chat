@@ -60,7 +60,9 @@
   	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 
-
+.login-link-text {
+    cursor: pointer;
+}
 
 .login-button:hover {
   	color: #ffffff;

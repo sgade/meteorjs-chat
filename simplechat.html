@@ -78,9 +78,17 @@
 <template name="chat">
 	<div class="chat">
 		<div class="messages box">
-			{{#each messages}}
-				{{> message}}
-			{{/each}}
+            {{#unless noMessages}}
+                {{#each messages}}
+				    {{> message}}
+                {{/each}}
+            {{/unless}}
+            
+            {{#if noMessages}}
+                <span class="loading">
+                    Please wait while we are loading messages for you...
+                </span>
+            {{/if}}
 		</div>
 		<div class="grid input">
             <div class="row-fluid">
@@ -124,9 +132,17 @@
         
         <div class="box">
 			<ul>
-            {{#each threads}}
-                {{> thread}}
-            {{/each}}
+                {{#unless noMessages}}
+                    {{#each threads}}
+                        {{> thread}}
+                    {{/each}}
+                {{/unless}}
+                
+                {{#if noMessages}}
+                    <li class="loading">
+                        Please wait while we are looking for threads for you...
+                    </li>
+                {{/if}}
 			</ul>
         </div>
 		<div class="grid input">

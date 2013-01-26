@@ -16,7 +16,6 @@ if (Meteor.isClient) {
             Session.set("currentThread", threadName);
         }
     });
-	
     ThreadRouter = new Router;
 
     Meteor.startup(function () {
@@ -27,7 +26,6 @@ if (Meteor.isClient) {
 			Meteor.subscribe("allUserData");
 			Messages.find().observe({
 				added: function(item){
-					console.log(new Date().getTime()-item.time + 3000);
 					if(item.thread.name == Session.get("currentThread") &&
 					   item.user != Meteor.user()._id &&
 					   item.time + 3000 > new Date().getTime()) {
@@ -40,7 +38,6 @@ if (Meteor.isClient) {
 		  url: '/swf/',
 		  flashVersion: 9,
 		  onready: function() {
-			  console.log("inited");
 			  mySound = soundManager.createSound({
 			    id: 'notification',
 			    url: '/sounds/notify.mp3',

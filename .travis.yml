@@ -3,3 +3,6 @@ node_js:
    - "0.8"
 script: "meteor deploy ce-bt-chat.meteor.com"
 before_script: "curl https://install.meteor.com | /bin/sh"
+branches:
+ only:
+  - master

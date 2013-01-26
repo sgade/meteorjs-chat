@@ -86,6 +86,9 @@ if (Meteor.isClient) {
      * Template: Messages
      * **************************************************
      * */
+    Template.chat.noMessages = function() {
+        return ( Template.chat.messages().length == 0 );
+    };
     Template.chat.messages = function () {
         return Messages.find({
             thread: {
@@ -135,6 +138,9 @@ if (Meteor.isClient) {
      * Template: Threads
      * **************************************************
      * */
+    Template.threads.noMessages = function() {
+        return Template.chat.noMessages();
+    };
     Template.threads.threads = function () {
         var threads = [];
         var messages = Messages.find({}, {
@@ -156,9 +162,7 @@ if (Meteor.isClient) {
     };
     
     Template.threads.onlineUsersString = function() {
-        var text = Meteor.users.find({
-            'profile.online': true
-        }).count();
+        var text = getOnlineUsersCount();
         
         if ( text == 1 )
             text += " user";
@@ -175,8 +179,7 @@ if (Meteor.isClient) {
 		},
 		'click #button-confirm-thread': function(event) {
 			var threadName = $("#input-thread").val();
-			console.log(threadName);
-		    //if ( threadName !== "" )
+		    if ( threadName !== "" )
 		    {
 		        $("#input-thread").val("");
 		    	ThreadRouter.navigate(threadName);
@@ -206,10 +209,7 @@ if (Meteor.isClient) {
     };
         
     Template.thread.onlineUsersCount = function(name) {
-        return Meteor.users.find({
-            'profile.online': true,
-            'profile.currentThread': name
-        }).count();
+        return getOnlineUsersCountThread(name);
     };
 	
 	Template.thread.events({
@@ -225,7 +225,7 @@ if (Meteor.isClient) {
                 _id: Meteor.user()._id
             }, {
                 $set: {
-                    'profile.online': true,
+                    'profile.lastPing': new Date().getTime(),
                     'profile.currentThread': Session.get("currentThread")
                 }
             });

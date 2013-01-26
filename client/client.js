@@ -62,6 +62,9 @@ if (Meteor.isClient) {
      * Template: Messages
      * **************************************************
      * */
+    Template.chat.noMessages = function() {
+        return ( Template.chat.messages().length == 0 );
+    };
     Template.chat.messages = function () {
         return Messages.find({
             thread: {
@@ -111,6 +114,9 @@ if (Meteor.isClient) {
      * Template: Threads
      * **************************************************
      * */
+    Template.threads.noMessages = function() {
+        return Template.chat.noMessages();
+    };
     Template.threads.threads = function () {
         var threads = [];
         var messages = Messages.find({}, {

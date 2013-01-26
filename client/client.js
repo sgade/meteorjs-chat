@@ -16,6 +16,7 @@ if (Meteor.isClient) {
             Session.set("currentThread", threadName);
         }
     });
+	
     ThreadRouter = new Router;
 
     Meteor.startup(function () {
@@ -24,7 +25,30 @@ if (Meteor.isClient) {
         });
 		Meteor.autosubscribe(function() {
 			Meteor.subscribe("allUserData");
-		})
+			Messages.find().observe({
+				added: function(item){
+					console.log(new Date().getTime()-item.time + 3000);
+					if(item.thread.name == Session.get("currentThread") &&
+					   item.user != Meteor.user()._id &&
+					   item.time + 3000 > new Date().getTime()) {
+						playMessageReceivedSound();
+					}
+				}
+			});
+		});
+		soundManager.setup({
+		  url: '/swf/',
+		  flashVersion: 9,
+		  onready: function() {
+			  console.log("inited");
+			  mySound = soundManager.createSound({
+			    id: 'notification',
+			    url: '/sounds/notify.mp3',
+			    autoLoad: true,
+				volume: 50
+			  });
+		  }
+		});
     });
 
 

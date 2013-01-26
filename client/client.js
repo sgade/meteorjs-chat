@@ -22,18 +22,24 @@ if (Meteor.isClient) {
         Backbone.history.start({
             pushState: true
         });
+        
 		Meteor.autosubscribe(function() {
 			Meteor.subscribe("allUserData");
 			Messages.find().observe({
-				added: function(item){
-					if(item.thread.name == Session.get("currentThread") &&
-					   item.user != Meteor.user()._id &&
-					   item.time + 3000 > new Date().getTime()) {
-						playMessageReceivedSound();
-					}
-				}
+				added: function(item) {
+                    if ( Meteor.user() != null )
+                    {
+					   if ( item.thread.name == Session.get("currentThread") &&
+                            item.user != Meteor.user()._id &&
+					        item.time + 3000 > new Date().getTime() )
+                       {
+						  playMessageReceivedSound();
+					   }
+                    }
+				},
 			});
 		});
+        
 		soundManager.setup({
 		  url: '/swf/',
 		  flashVersion: 9,

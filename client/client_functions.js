@@ -7,10 +7,12 @@ if (Meteor.isClient) {
     }
 	
 	function playMessageReceivedSound() {
-		if(lastSoundPlayed + 500 < new Date().getTime()) {
-			lastSoundPlayed = new Date().getTime();
-			
-			mySound.play();
+		if ( lastSoundPlayed + 500 < new Date().getTime() ) {
+            if ( mySound !== undefined )
+            {
+                lastSoundPlayed = new Date().getTime();
+                mySound.play();
+            }
 		}
 	}
 }

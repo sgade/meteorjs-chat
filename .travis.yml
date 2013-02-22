@@ -1,7 +1,7 @@
 language: node_js
 node_js:
    - "0.8"
-script: "meteor deploy ce-bt-chat.meteor.com"
+script: ./deploy_travis.sh
 before_script: "curl https://install.meteor.com | /bin/sh"
 branches:
  only:

@@ -8,18 +8,13 @@ if (Meteor.isServer) {
             'user': SERVER_USERID,
             'text': 'Server restarted. Have fun.',
             'thread': {
-                name: MAIN_THREAD_NAME
+                'name': MAIN_THREAD_NAME
             }
         };
         Messages.insert(message);
 
         Meteor.publish("messages", function () {
-            return Messages.find({}, {
-                'sort': {
-                    'time': 1
-                },
-                'limit': 200
-            });
+            return Messages.find();
         });
 
         Accounts.validateNewUser(function (user) {
@@ -36,10 +31,12 @@ if (Meteor.isServer) {
         });
 
         Messages.allow({
-            insert: function (userId, doc) {
-                if ( doc.time && doc.user && doc.text ) {
-                    if ( doc.user != SERVER_USERID )
+            insert: function (uid, doc) {		
+							//return true;
+                if ( doc.time && doc.user && doc.text && doc.thread) {
+                    if ( doc.user !== SERVER_USERID ) {
                         return true;
+											}
                     else
                         throw new Meteor.Error(403, "Haha. You are not the server.");
                 }
@@ -62,10 +59,15 @@ if (Meteor.isServer) {
             return Meteor.users.find( {}, {
                 fields: {
                     'username': 1,
-                    'profile.lastPing': 1,
+                    'profile.online': 1,
                     'profile.currentThread': 1
                 }
             });
 		});
+		
+		Meteor.setInterval(function() {
+			Meteor.users.update({'profile.lastPing': {$gte: getValidOnlineDate()}}, {$set: {'profile.online': true}});
+			Meteor.users.update({'profile.lastPing': {$lt: getValidOnlineDate()}}, {$set: {'profile.online': false}});
+		}, 10000)
     });
 }

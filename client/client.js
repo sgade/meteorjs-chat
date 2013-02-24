@@ -14,6 +14,7 @@ if (Meteor.isClient) {
         thread: function (threadName) {
             Meteor.call("createThread", threadName);
             Session.set("currentThread", threadName);
+						Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.currentThread': threadName, 'profile.lastPing': new Date().getTime()}});
         }
     });
     ThreadRouter = new Router;
@@ -27,15 +28,15 @@ if (Meteor.isClient) {
 			Meteor.subscribe("allUserData");
 			Messages.find().observe({
 				added: function(item) {
-                    if ( Meteor.user() != null )
-                    {
-					   if ( item.thread.name == Session.get("currentThread") &&
-                            item.user != Meteor.user()._id &&
-					        item.time + 3000 > new Date().getTime() )
-                       {
-						  playMessageReceivedSound();
-					   }
-                    }
+					if (Meteor.user() != null) {
+						//scrollMessagesToBottom();
+						if (item.thread.name == Session.get("currentThread")){
+							if (item.user != Meteor.user()._id &&
+					      	item.time + 3000 > new Date().getTime()) {
+										playMessageReceivedSound();
+							}
+						}
+					}
 				},
 			});
 		});
@@ -97,7 +98,7 @@ if (Meteor.isClient) {
             thread: {
                 name: Session.get("currentThread")
             }
-        }).fetch();
+        }, {limit: 200}).fetch();
     };
 
     // events
@@ -114,10 +115,7 @@ if (Meteor.isClient) {
             }
         }
     });
-    // render
-    Template.chat.rendered = function () {
-        scrollMessagesToBottom();
-    };
+
     
     /* **************************************************
      * Template: Message
@@ -135,6 +133,13 @@ if (Meteor.isClient) {
     };
     Template.message.time = function () {
         return getTimeStampFromTime(this.time);
+    };
+    /* **************************************************
+     * Template: Chat
+     * **************************************************
+     * */
+    Template.chat.rendered = function () {
+        scrollMessagesToBottom();
     };
     
     /* **************************************************
@@ -156,7 +161,7 @@ if (Meteor.isClient) {
             _.each(threads, function (searchThread) {
                 if ( searchThread.name === message.thread.name )
                     contains = true;
-            })
+            });
             if ( !contains )
                 threads.push(message.thread)
         })
@@ -228,10 +233,9 @@ if (Meteor.isClient) {
                 _id: Meteor.user()._id
             }, {
                 $set: {
-                    'profile.lastPing': new Date().getTime(),
-                    'profile.currentThread': Session.get("currentThread")
+                    'profile.lastPing': new Date().getTime()
                 }
             });
         }
-	}, 3000);
+	}, 10000);
 }

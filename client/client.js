@@ -159,7 +159,7 @@ if (Meteor.isClient) {
         messages.forEach(function (message) {
             var contains = false;
             _.each(threads, function (searchThread) {
-                if ( searchThread.name === message.thread.name )
+                if (searchThread.name === message.thread.name)
                     contains = true;
             });
             if ( !contains )

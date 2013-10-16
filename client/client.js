@@ -17,6 +17,7 @@ if (Meteor.isClient) {
 						Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.currentThread': threadName, 'profile.lastPing': new Date().getTime()}});
         }
     });
+    
     ThreadRouter = new Router;
 
     Meteor.startup(function () {

@@ -3,7 +3,7 @@ if (Meteor.isClient) {
   var lastSoundPlayed = 0;
 	var oldScroll = 0;
   
-  scrollMessagesToBottom = function() {
+  scrollMessagesToBottom = () => {
 	  var selector = $(".messages");
 		
 		var newScroll = selector[0].scrollHeight;
@@ -13,7 +13,7 @@ if (Meteor.isClient) {
 		oldScroll = newScroll;
   }
 	
-	playMessageReceivedSound = function() {
+	playMessageReceivedSound = () => {
 		if ( lastSoundPlayed + 500 < new Date().getTime() ) {
             if ( mySound !== undefined )
             {

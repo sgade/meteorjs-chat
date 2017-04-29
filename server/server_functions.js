@@ -4,7 +4,7 @@ if (Meteor.isServer) {
     }
     
     Meteor.methods({
-        createThread: function (threadName) {
+        createThread(threadName) {
             if (Messages.find({
                 thread: {
                     name: threadName

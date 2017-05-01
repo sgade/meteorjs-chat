@@ -1,5 +1,5 @@
 if (Meteor.isServer) {
-    Meteor.startup(function () {
+    Meteor.startup(() => {
         // code to run on server at startup
 
         // add welcome message
@@ -13,11 +13,9 @@ if (Meteor.isServer) {
         };
         Messages.insert(message);
 
-        Meteor.publish("messages", function () {
-            return Messages.find();
-        });
+        Meteor.publish("messages", () => Messages.find());
 
-        Accounts.validateNewUser(function (user) {
+        Accounts.validateNewUser(user => {
             if ( user.username && user.username.length >= 3 && user.username != "SERVER" ) {
                 console.log("User " + user.username + " registered.");
                 
@@ -31,7 +29,7 @@ if (Meteor.isServer) {
         });
 
         Messages.allow({
-            insert: function (uid, doc) {		
+            insert(uid, doc) {		
 							//return true;
                 if ( doc.time && doc.user && doc.text && doc.thread) {
                     if ( doc.user !== SERVER_USERID ) {
@@ -45,27 +43,25 @@ if (Meteor.isServer) {
 
                 return false;
             },
-            update: function () {
+            update() {
                 throw new Meteor.Error(403, "Please do not try to cheat on us. Thanks.");
                 return false;
             },
-            remove: function () {
+            remove() {
                 throw new Meteor.Error(403, "Removal not allowed, hacker.");
                 return false; // obsolete
             },
         });
 		
-		Meteor.publish("allUserData", function () {
-            return Meteor.users.find( {}, {
-                fields: {
-                    'username': 1,
-                    'profile.online': 1,
-                    'profile.currentThread': 1
-                }
-            });
-		});
+		Meteor.publish("allUserData", () => Meteor.users.find( {}, {
+            fields: {
+                'username': 1,
+                'profile.online': 1,
+                'profile.currentThread': 1
+            }
+        }));
 		
-		Meteor.setInterval(function() {
+		Meteor.setInterval(() => {
 			Meteor.users.update({'profile.lastPing': {$gte: getValidOnlineDate()}}, {$set: {'profile.online': true}});
 			Meteor.users.update({'profile.lastPing': {$lt: getValidOnlineDate()}}, {$set: {'profile.online': false}});
 		}, 10000)

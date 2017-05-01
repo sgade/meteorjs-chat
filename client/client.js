@@ -8,10 +8,10 @@ if (Meteor.isClient) {
             "": "main",
             ":thread": "thread"
         },
-        main: function () {
+        main() {
 		    this.navigate(MAIN_THREAD_NAME);
         },
-        thread: function (threadName) {
+        thread(threadName) {
             Meteor.call("createThread", threadName);
             Session.set("currentThread", threadName);
 						Meteor.users.update({_id: Meteor.userId()}, {$set: {'profile.currentThread': threadName, 'profile.lastPing': new Date().getTime()}});
@@ -20,15 +20,15 @@ if (Meteor.isClient) {
     
     ThreadRouter = new Router;
 
-    Meteor.startup(function () {
+    Meteor.startup(() => {
         Backbone.history.start({
             pushState: true
         });
         
-		Meteor.autosubscribe(function() {
+		Meteor.autosubscribe(() => {
 			Meteor.subscribe("allUserData");
 			Messages.find().observe({
-				added: function(item) {
+				added(item) {
 					if (Meteor.user() != null) {
 						//scrollMessagesToBottom();
 						if (item.thread.name == Session.get("currentThread")){
@@ -45,7 +45,7 @@ if (Meteor.isClient) {
 		soundManager.setup({
 		  url: '/swf/',
 		  flashVersion: 9,
-		  onready: function() {
+		  onready() {
 			  mySound = soundManager.createSound({
 			    id: 'notification',
 			    url: '/sounds/notify.mp3',
@@ -68,7 +68,7 @@ if (Meteor.isClient) {
      * Collection subscriptions
      * **************************************************
      * */
-    Meteor.autosubscribe(function () {
+    Meteor.autosubscribe(() => {
         Meteor.subscribe("messages");
     });
 
@@ -76,9 +76,7 @@ if (Meteor.isClient) {
      * Template: General UI
      * **************************************************
      * */
-    Template.ui.connectionStatus = function () {
-        return Meteor.status().status;
-    };
+    Template.ui.connectionStatus = () => Meteor.status().status;
     // events
     Template.ui.events({
         'click .connection-status': function () {
@@ -91,16 +89,12 @@ if (Meteor.isClient) {
      * Template: Messages
      * **************************************************
      * */
-    Template.chat.noMessages = function() {
-        return ( Template.chat.messages().length == 0 );
-    };
-    Template.chat.messages = function () {
-        return Messages.find({
-            thread: {
-                name: Session.get("currentThread")
-            }
-        }, {limit: 200}).fetch();
-    };
+    Template.chat.noMessages = () => Template.chat.messages().length == 0;
+    Template.chat.messages = () => Messages.find({
+        thread: {
+            name: Session.get("currentThread")
+        }
+    }, {limit: 200}).fetch();
 
     // events
     Template.chat.events({
@@ -139,7 +133,7 @@ if (Meteor.isClient) {
      * Template: Chat
      * **************************************************
      * */
-    Template.chat.rendered = function () {
+    Template.chat.rendered = () => {
         scrollMessagesToBottom();
     };
     
@@ -147,19 +141,17 @@ if (Meteor.isClient) {
      * Template: Threads
      * **************************************************
      * */
-    Template.threads.noMessages = function() {
-        return Template.chat.noMessages();
-    };
-    Template.threads.threads = function () {
+    Template.threads.noMessages = () => Template.chat.noMessages();
+    Template.threads.threads = () => {
         var threads = [];
         var messages = Messages.find({}, {
             fields: {
                 thread: 1
             }
         });
-        messages.forEach(function (message) {
+        messages.forEach(message => {
             var contains = false;
-            _.each(threads, function (searchThread) {
+            _.each(threads, searchThread => {
                 if (searchThread.name === message.thread.name)
                     contains = true;
             });
@@ -170,7 +162,7 @@ if (Meteor.isClient) {
         return threads;
     };
     
-    Template.threads.onlineUsersString = function() {
+    Template.threads.onlineUsersString = () => {
         var text = getOnlineUsersCount();
         
         if ( text == 1 )
@@ -200,26 +192,18 @@ if (Meteor.isClient) {
      * Template: Thread
      * **************************************************
      * */
-    Template.thread.isCurrentThread = function (thread) {
-        return Session.equals("currentThread", thread);
-    };
+    Template.thread.isCurrentThread = thread => Session.equals("currentThread", thread);
 	
-	Template.thread.formatName = function (name) {
-		return decodeURIComponent(name);
-	};
+	Template.thread.formatName = name => decodeURIComponent(name);
     
-    Template.thread.url = function(name) {
-        // causes reload:
-        /* return Meteor.absoluteUrl(name, {
-            'secure': true
-        }); */
+    Template.thread.url = name => // causes reload:
+    /* return Meteor.absoluteUrl(name, {
+        'secure': true
+    }); */
+
+    "#";
         
-        return "#";
-    };
-        
-    Template.thread.onlineUsersCount = function(name) {
-        return getOnlineUsersCountThread(name);
-    };
+    Template.thread.onlineUsersCount = name => getOnlineUsersCountThread(name);
 	
 	Template.thread.events({
 		'click .thread-link': function() {
@@ -228,7 +212,7 @@ if (Meteor.isClient) {
   		}
 	});
 	
-	Meteor.setInterval(function () {
+	Meteor.setInterval(() => {
         if ( Meteor.user() != null ) {
             Meteor.users.update({
                 _id: Meteor.user()._id
